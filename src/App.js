@@ -25,7 +25,7 @@ function App() {
   const [roastthefuck, setRoastthefuck] = useState('')
   const [answer, setAnswer] = useState('')
   const [useraskedforchange, setUseraskedforchange] = useState(0)
-  // !!!! // const [sumofnum, setSumofnum] = useState([
+  // !!!! // const [sumofnum, setSumofnum] = useState([])
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   let newarray = []
   let newarray2 = []
