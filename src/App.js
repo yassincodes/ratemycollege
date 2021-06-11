@@ -708,9 +708,9 @@ function App() {
       </div>
       </Animated>
      
-      <div className="input_container_container" >
-       <div className="input_container_buttons"> 
-       <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={400} animationOutDuration={1000}>
+     <div className="input_container_container" >
+       <div className="input_container_buttons" style={{marginTop:"-1.2vh"}}> 
+       <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={400} animationOutDuration={1000} style={{marginTop:"2.5vh"}}>
         <div className="input_container_button" onClick={handleButton} style={{fontWeight: handleBold()}}>⭐ Rate The Fuck</div>
         </Animated>
         <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={600} animationOutDuration={1000}>
