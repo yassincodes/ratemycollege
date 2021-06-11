@@ -412,6 +412,13 @@ function App() {
       return {display: 'none'}
     }
   }
+  function handleFirstJellyFishButton() {
+    if (trueinputorfalse == true) {
+      return {visibility: 'visible', marginTop:"3vh"}
+    } else {
+      return {display: 'none'}
+    }
+  }
   function vis0() {
    if (visibleornot === true && JSON.stringify(localStorage.getItem('data3')).slice(0, JSON.stringify(localStorage.getItem('data3')).length - 1).substring(1) === "true") {
     return {display: 'none'}
@@ -710,7 +717,7 @@ function App() {
      
      <div className="input_container_container" >
        <div className="input_container_buttons" style={{marginTop:"-1.2vh"}}> 
-       <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={400} animationOutDuration={1000} style={{marginTop:"2.5vh"}}>
+       <Animated style={handleFirstJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={400} animationOutDuration={1000}>
         <div className="input_container_button" onClick={handleButton} style={{fontWeight: handleBold()}}>⭐ Rate The Fuck</div>
         </Animated>
         <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={600} animationOutDuration={1000}>
