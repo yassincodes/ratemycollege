@@ -414,7 +414,7 @@ function App() {
   }
   function handleFirstJellyFishButton() {
     if (trueinputorfalse == true) {
-      return {visibility: 'visible', marginTop:"3vh"}
+      return {visibility: 'visible', marginTop:"3.1vh"}
     } else {
       return {display: 'none'}
     }
