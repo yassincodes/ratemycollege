@@ -561,7 +561,7 @@ function App() {
     return ( 
       <div className="App">
        <div className="header_container">
-        <header className="header">
+        <header className="header" style={{marginLeft:"15px"}}>
          <div className="rate_the_fuck">RateTheFuck.com</div>
          <div></div>
         </header>
@@ -764,7 +764,7 @@ function App() {
   return (
     <div className="App">
       <div className="header_container">
-      <header className="header">
+      <header className="header" style={{marginLeft:"15px"}}>
          <div className="rate_the_fuck">RateTheFuck.com</div>
          <div></div>
       </header>
