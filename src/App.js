@@ -562,7 +562,7 @@ function App() {
       <div className="App">
        <div className="header_container">
         <header className="header" style={{marginLeft:"15px"}}>
-         <div className="rate_the_fuck">RateTheFuck.com</div>
+         <div className="rate_the_fuck">RateTheFuck</div>
          <div></div>
         </header>
        </div>
