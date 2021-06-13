@@ -39,6 +39,8 @@ function App() {
       setQuestionnumber(0)
     }
   }
+  const [ratingEmoji, setRatingEmoji] = useState(0)
+ 
   // const [didyouclickshare, setDidyouclickshare] = useState(false) //
   /////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////
@@ -604,7 +606,7 @@ function App() {
         </div>
         <div className="input_container_share">
         <div className="input_container_share_rate">
-           <div className="the_rating">{slider/10}<span className="devten">/10</span></div>
+           <div className="the_rating">{slider/10}<span className="devten">/10</span> <span>{}</span></div>
            <div className="the_slider">
             <input
             className="slider"
@@ -662,15 +664,13 @@ function App() {
              <div className="the_name_emoji_flower">
                  🌹
              </div>
-           </div>
-           <div className="the_talk">
+           </div> 
               <textarea 
                 value={roastthefuck}
                 placeholder="ahki 3lih 3la rahtk!"
                 rows="6"
                 onChange={handleroastthefuck}
               />
-           </div>
           </div>
         </div>
         </div>
@@ -700,14 +700,12 @@ function App() {
              />
             </div>
            </div>
-           <div className="the_talk">
               <textarea 
                value={answer}
                placeholder="3abr 3la rahtk 😃"
                rows="5"
                onChange={handleanswer}
               />
-           </div>
           </div>
         </div>
         </div>

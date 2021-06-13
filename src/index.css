@@ -445,6 +445,22 @@ transform: scale(1.5);
     margin-right:-15vw;
   }
 }
+@media only screen and (max-width:400px) {
+  .input_container_share {
+    width:70vw;
+  }
+  .the_name_input {
+    width:40vw;
+  }
+}
+@media only screen and (max-width:370px) {
+  .input_container_share {
+    width:65vw;
+  }
+  .the_name_input {
+    width:35vw;
+  }
+}
 .the_name_emoji_shoe {
   -webkit-animation: action 0.5s infinite  alternate;
   animation: action 0.5s infinite  alternate;
