@@ -2,13 +2,13 @@ import firebase from "firebase/app";
 import "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAReochBY_zafy_Qp_edWb8h4JAvDFkXt0",
-  authDomain: "ratethefuck-v2.firebaseapp.com",
-  projectId: "ratethefuck-v2",
-  storageBucket: "ratethefuck-v2.appspot.com",
-  messagingSenderId: "1038267520340",
-  appId: "1:1038267520340:web:3790d8b632a302d98a64c1",
-  measurementId: "G-T9VKX7XYFX"
+    apiKey: "AIzaSyCe_3NHr52XG6GT0B_8west5JlUxQeAMOE",
+    authDomain: "ratethefuck-90e42.firebaseapp.com",
+    projectId: "ratethefuck-90e42",
+    storageBucket: "ratethefuck-90e42.appspot.com",
+    messagingSenderId: "1048866058597",
+    appId: "1:1048866058597:web:c699b23c2422f92334b18c",
+    measurementId: "G-XX3BC76L46"
   };
 
 firebase.initializeApp(firebaseConfig);
