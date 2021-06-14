@@ -46,7 +46,6 @@ const VoteButtons = ({ fuck }) => {
         {fuck.upVotesCount}
        </div>
      </div>
-
      <div className="interaction_buttons_icons">
        <div>
         <button onClick={() => handleClick("downvote")} className="interaction_buttons_icons_emoji">🍅</button>
@@ -55,8 +54,7 @@ const VoteButtons = ({ fuck }) => {
           {fuck.downVotesCount}
        </div>
       </div>
-
-      <div className="interaction_buttons_icons" style={{marginRight:"5px"}}>
+      <div className="interaction_buttons_icons">
         <div>
           <button onClick={() => handleClick("funnyvote")} className="interaction_buttons_icons_emoji">😂</button>
         </div>

@@ -577,7 +577,6 @@ function App() {
           +
         </div>
        </div>
-     
        {
          //////////////////////////////////////////////////////////////////////
        }
@@ -696,6 +695,7 @@ function App() {
                 src="https://image.flaticon.com/icons/png/512/3580/3580275.png"
                 width="50"
                 height="50"
+                className="the_image_pic"
                 onClick={handleNewQuestion}
              />
             </div>

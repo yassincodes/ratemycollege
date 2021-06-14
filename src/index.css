@@ -32,6 +32,17 @@ span::selection {
   background: #000000;
   color: white;
 }
+.the_q::selection {
+  background: #000000;
+  color: white;
+}
+.interaction_buttons_icons_emoji::selection {
+  background:#000000;
+}
+.the_image_pic::selection {
+  background:#000000;
+  color: white;
+}
 svg{
   margin: 0;
   padding: 0;
@@ -434,15 +445,47 @@ transform: scale(1.5);
   margin-top:-3.5vh;
 }
 @media only screen and (max-width: 1000px) {
-  .the_body_inside_the_body {
-    margin-left:-10vw;
-    margin-right:-10vw;
+  .second_header {
+    margin-left: 10vw;
+    margin-right:10vw;
+  }
+  .input_container {
+    margin-left: 10vw;
+    margin-right:10vw;
+  }
+  .home_page {
+    margin-left: 10vw;
+    margin-right:10vw;
+  }
+  .input_container_buttons {
+    margin-left: 10vw;
+    margin-right:10vw;
+  }
+  .interaction_buttons {
+    margin-left:10vw;
+    margin-right:10vw;
   }
 }
 @media only screen and (max-width: 600px) {
-  .the_body_inside_the_body {
-    margin-left:-15vw;
-    margin-right:-15vw;
+  .second_header {
+    margin-left: 4vw;
+    margin-right:4vw;
+  }
+  .input_container {
+    margin-left: 4vw;
+    margin-right:4vw;
+  }
+  .home_page {
+    margin-left: 4vw;
+    margin-right:4vw;
+  }
+  .input_container_buttons {
+    margin-left: 4vw;
+    margin-right:4vw;
+  }
+  .interaction_buttons {
+    margin-left: 4vw;
+    margin-right:4vw;
   }
 }
 @media only screen and (max-width:400px) {
