@@ -39,8 +39,24 @@ function App() {
       setQuestionnumber(0)
     }
   }
-  const [ratingEmoji, setRatingEmoji] = useState(0)
- 
+  const [ratingEmoji, setRatingEmoji] = useState(slider/10)
+  function returnRatingEmoji() {
+    if (ratingEmoji == 0 || ratingEmoji == 1 ) {
+      return "😡"
+    }
+    if (ratingEmoji == 2 || ratingEmoji ==  3 || ratingEmoji == 4) {
+      return "☹️"
+    }
+    if (ratingEmoji == 5) {
+      return "🙄"
+    }
+    if (ratingEmoji == 6 || ratingEmoji == 7 || ratingEmoji == 8) {
+      return "😎"
+    }
+    if (ratingEmoji == 9 || ratingEmoji == 10) {
+      return "😍"
+    }
+  }
   // const [didyouclickshare, setDidyouclickshare] = useState(false) //
   /////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////
@@ -237,6 +253,7 @@ function App() {
   }
   function handleSlider(e) {
     setSlider(e.target.value)
+    setRatingEmoji(e.target.value/10)
   }
   function handleButton() {
     setSlider(slider)
@@ -605,7 +622,7 @@ function App() {
         </div>
         <div className="input_container_share">
         <div className="input_container_share_rate">
-           <div className="the_rating">{slider/10}<span className="devten">/10</span> <span>{}</span></div>
+           <div className="the_rating">{slider/10}<span className="devten">/10</span><span>  {returnRatingEmoji()}</span></div>
            <div className="the_slider">
             <input
             className="slider"
