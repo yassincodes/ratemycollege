@@ -461,9 +461,6 @@ transform: scale(1.5);
     margin-left: 10vw;
     margin-right:10vw;
   }
-  .interaction_buttons{
-    width:80vw;
-  }
   .interaction_buttons_icons {
     width:70px
   }
@@ -484,9 +481,6 @@ transform: scale(1.5);
   .input_container_buttons {
     margin-left: 4vw;
     margin-right:4vw;
-  }
-  .interaction_buttons{
-    width:80vw;
   }
   .interaction_buttons_icons {
     width:70px

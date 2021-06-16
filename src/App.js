@@ -177,7 +177,7 @@ function App() {
        localStorage.setItem('data2',true)
         setBold(false)
       }
-      firebase
+     firebase
       .firestore()
       .collection(JSON.stringify(localStorage.getItem('data')) + "rating")
       .add({
@@ -196,7 +196,7 @@ function App() {
        localStorage.setItem('data2',true)
         setBold(false)
       }
-      firebase
+     firebase
       .firestore()
       .collection(JSON.stringify(localStorage.getItem('data')) + "rating")
       .add({
@@ -222,7 +222,7 @@ function App() {
       alert("you should type your answer")
     }
     if (bold2===true && saythefuck.length > 0 || bold3===true && name.length > 2 && roastthefuck.length > 0 || bold4===true && answer.length > 0) {
-      firebase
+    firebase
      .firestore()
      .collection(JSON.stringify(localStorage.getItem('data')))
      .add({
@@ -236,9 +236,8 @@ function App() {
        funnyvote:0,
        createdAt: date.toUTCString(),
        updatedAt: date.toUTCString()
-  });
+  })
     }
-    
   }
   firebase
     .firestore()
