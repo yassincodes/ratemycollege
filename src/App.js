@@ -576,7 +576,7 @@ function App() {
     setTrueorfalseThree(!trueorfalseThree)
   }
   function addToPostsTest() {
-    firebase.firestore().collection("ISEAHZ").add({message:"this is just a message"})
+    firebase.firestore().collection("ATEST").add({message:"this is just a message"})
   }
   if (localData) {
     return ( 
@@ -751,7 +751,7 @@ function App() {
         <a href="#" className="share_the_fuck" onClick={e => addToPosts()}><span>SHARE</span></a>
         </div>
         <div>
-          <button onClick={e => addToPostsTest()}>just for testing</button>
+          <button onClick={e => addToPostsTest()}>A TEST</button>
         </div>
         </Animated>
        </div>
