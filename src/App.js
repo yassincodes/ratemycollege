@@ -744,7 +744,7 @@ function App() {
         <div className="input_container_button" onClick={handleButton4} style={{fontWeight: handleBold4(), marginBottom:"20px"}}>💬 answer a question</div>
         </Animated>
         <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={1200} animationOutDuration={1000}>
-        <div className="share_button" className="input_container_button">
+        <div className="share_button" className="input_container_button" style={{marginBottom:"50px"}}>
         <a href="#" className="share_the_fuck" onClick={e => addToPosts()}><span>SHARE</span></a>
         </div>
         </Animated>
