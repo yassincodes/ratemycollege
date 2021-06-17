@@ -575,9 +575,6 @@ function App() {
   function handleTrueorfalseThree() {
     setTrueorfalseThree(!trueorfalseThree)
   }
-  function addToPostsTest() {
-    firebase.firestore().collection("ATEST").add({message:"this is just a message"})
-  }
   if (localData) {
     return ( 
       <div className="App">
@@ -749,9 +746,6 @@ function App() {
         <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={1200} animationOutDuration={1000}>
         <div className="share_button" className="input_container_button" style={{marginBottom:"50px"}}>
         <a href="#" className="share_the_fuck" onClick={e => addToPosts()}><span>SHARE</span></a>
-        </div>
-        <div>
-          <button onClick={e => addToPostsTest()}>A TEST</button>
         </div>
         </Animated>
        </div>
