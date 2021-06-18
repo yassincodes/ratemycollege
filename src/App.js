@@ -24,7 +24,8 @@ function App() {
   const [name, setName] = useState('')
   const [roastthefuck, setRoastthefuck] = useState('')
   const [answer, setAnswer] = useState('')
-  const [useraskedforchange, setUseraskedforchange] = useState(0)
+  const [useraskedforchange, setUseraskedforchange] = useState('')
+  let nameOfTheUni = JSON.stringify(localStorage.getItem('data')).slice(0, JSON.stringify(localStorage.getItem('data')).length - 1).substring(1)
   // !!!! // const [sumofnum, setSumofnum] = useState([])
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   let newarray = []
@@ -68,7 +69,7 @@ function App() {
     // Hook to handle the initial fetching of posts
     firebase
       .firestore()
-      .collection(JSON.stringify(localStorage.getItem('data')) + "rating")
+      .collection(nameOfTheUni + "rating")
       .get()
       .then((querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => ({
@@ -86,7 +87,7 @@ function App() {
     // Hook to handle the initial fetching of posts
     firebase
       .firestore()
-      .collection(JSON.stringify(localStorage.getItem('data')))
+      .collection(nameOfTheUni)
       .get()
       .then((querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => ({
@@ -103,7 +104,7 @@ function App() {
 
      firebase
       .firestore()
-      .collection(JSON.stringify(localStorage.getItem('data')))
+      .collection(nameOfTheUni)
       .onSnapshot((querySnapshot) => {
         const _fucks = [];
 
@@ -179,7 +180,7 @@ function App() {
       }
      firebase
       .firestore()
-      .collection(JSON.stringify(localStorage.getItem('data')) + "rating")
+      .collection(nameOfTheUni + "rating")
       .add({
         firstrating: JSON.stringify(localStorage.getItem('data4')).slice(0, JSON.stringify(localStorage.getItem('data4')).length - 1).substring(1)/10
    });
@@ -198,7 +199,7 @@ function App() {
       }
      firebase
       .firestore()
-      .collection(JSON.stringify(localStorage.getItem('data')) + "rating")
+      .collection(nameOfTheUni + "rating")
       .add({
         //// the idea here is simple , we send always the new rating and we delete the rating that comes before him by just sending that old rating multiplied by -1
         //// this will create a series like that [firstrating = 5 , 6-5 , 7-6, 10-7] = [5, 6, -5, 7, -6, 10, -7] = 10 and that is the new rating
@@ -224,7 +225,7 @@ function App() {
     if (bold2===true && saythefuck.length > 0 || bold3===true && name.length > 2 && roastthefuck.length > 0 || bold4===true && answer.length > 0) {
     firebase
      .firestore()
-     .collection(JSON.stringify(localStorage.getItem('data')))
+     .collection(nameOfTheUni)
      .add({
        saythefuck: saythefuck,
        name: name,
@@ -746,6 +747,9 @@ function App() {
         <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={1200} animationOutDuration={1000}>
         <div className="share_button" className="input_container_button" style={{marginBottom:"50px"}}>
         <a href="#" className="share_the_fuck" onClick={e => addToPosts()}><span>SHARE</span></a>
+        </div>
+        <div>
+          {nameOfTheUni + "rating"}
         </div>
         </Animated>
        </div>
