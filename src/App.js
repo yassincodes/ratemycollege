@@ -748,9 +748,6 @@ function App() {
         <div className="share_button" className="input_container_button" style={{marginBottom:"50px"}}>
         <a href="#" className="share_the_fuck" onClick={e => addToPosts()}><span>SHARE</span></a>
         </div>
-        <div>
-          {nameOfTheUni + "rating"}
-        </div>
         </Animated>
        </div>
       </div>
