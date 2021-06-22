@@ -50,12 +50,6 @@ useEffect(() => {
   window.addEventListener("resize", handleResize)
 })
 
-if (isMobile === true) {
-  localStorage.setItem('data6', true)
-} else {
-  localStorage.setItem('data6', false)
-}
-
   function handleNewQuestion() {
     if (questionnumber < 3) {
       setQuestionnumber(questionnumber + 1)
@@ -146,7 +140,7 @@ if (isMobile === true) {
     setAnswer(e.target.value)
   }
   function thefuckingrating() {
-    fucksratings.forEach(fuck => fuck.firstrating ? newarray2.push(fuck.firstrating) : newarray.push(fuck.rating))
+    todoList.forEach(fuck => fuck.firstrating ? newarray2.push(fuck.firstrating) : newarray.push(fuck.rating))
     return  (newarray.reduce((a, b) => a + b, 0) + newarray2.reduce((a, b) => a + b, 0))/newarray2.length
   }
   function handleSlider(e) {
@@ -767,7 +761,7 @@ if (isMobile === true) {
     <div className="App">
       <div className="header_container">
       <header className="header" style={{marginLeft:"15px"}}>
-         <div className="rate_the_fuck">RateTheFuck{JSON.stringify(localStorage.getItem('data6')).slice(0, JSON.stringify(localStorage.getItem('data6')).length - 1).substring(1)}</div>
+         <div className="rate_the_fuck">RateTheFuck</div>
          <div></div>
       </header>
       </div>
