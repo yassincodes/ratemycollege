@@ -33,6 +33,29 @@ function App() {
   const date = new Date();
   const questions = ["sou2al r9am wahd", "isou2al ithani", "thalth sou2al", "hatha rab3 sou2al"]
   const [questionnumber, setQuestionnumber] = useState(0)
+
+
+
+  const [isMobile, setIsMobile] = useState(true)
+ 
+//choose the screen size 
+const handleResize = () => {
+  if (window.innerWidth < 1000) {
+      setIsMobile(false)
+  } else {
+      setIsMobile(true)
+  }
+}
+useEffect(() => {
+  window.addEventListener("resize", handleResize)
+})
+
+if (isMobile === true) {
+  localStorage.setItem('data6', true)
+} else {
+  localStorage.setItem('data6', false)
+}
+
   function handleNewQuestion() {
     if (questionnumber < 3) {
       setQuestionnumber(questionnumber + 1)
@@ -65,60 +88,37 @@ function App() {
   /////////////////////////////////////////////////////////////////////////////
   ///////////////this is something new it could be deleted/////////////////////
   const [fucksratings, setFucksratings] = useState([])
-  useEffect(() => {
+  //useEffect(() => {
     // Hook to handle the initial fetching of posts
-    firebase
-      .firestore()
-      .collection(nameOfTheUni + "rating")
-      .get()
-      .then((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+    //firebase
+      //.firestore()
+      //.collection(nameOfTheUni + "rating")
+      //.get()
+      //.then((querySnapshot) => {
+        //const data = querySnapshot.docs.map((doc) => ({
+          //id: doc.id,
+          //...doc.data(),
+       // }));
 
-        setFucksratings(data);
-      });
-  }, [addToPosts]);
+        //setFucksratings(data);
+      //});
+  //}, [addToPosts]);
 
   const [fucks, setFucks] = useState([]);
  
+  const [todoList, setTodoList] = useState();
+
   useEffect(() => {
-    // Hook to handle the initial fetching of posts
-    firebase
-      .firestore()
-      .collection(nameOfTheUni)
-      .get()
-      .then((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        setFucks(data);
-      });
+    const todoRef = firebase.database().ref(nameOfTheUni);
+    todoRef.on('value', (snapshot) => {
+      const todos = snapshot.val();
+      const todoList = [];
+      for (let id in todos) {
+        todoList.push({ id, ...todos[id] });
+      }
+      setTodoList(todoList);
+    });
   }, [JSON.stringify(localStorage.getItem('data'))]);
-  useEffect(() => {
-    // Hook to handle the real-time updating of posts whenever there is a
-    // change in the datastore (https://firebase.google.com/docs/firestore/query-data/listen#view_changes_between_snapshots)
-
-     firebase
-      .firestore()
-      .collection(nameOfTheUni)
-      .onSnapshot((querySnapshot) => {
-        const _fucks = [];
-
-        querySnapshot.forEach((doc) => {
-          _fucks.push({
-            id: doc.id,
-            ...doc.data(),
-          });
-        });
-
-        setFucks(_fucks);
-      });
-  }, [JSON.stringify(localStorage.getItem('data'))]);
-
   /////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////
@@ -149,108 +149,6 @@ function App() {
     fucksratings.forEach(fuck => fuck.firstrating ? newarray2.push(fuck.firstrating) : newarray.push(fuck.rating))
     return  (newarray.reduce((a, b) => a + b, 0) + newarray2.reduce((a, b) => a + b, 0))/newarray2.length
   }
-  function addToPosts() {
-    {
-      ////////////////////////////////
-    }
-    if (JSON.stringify(localStorage.getItem('data2')).slice(0, JSON.stringify(localStorage.getItem('data2')).length - 1).substring(1) == "true") {
-      alert('you rated the fuck')
-    }
-    setSaythefuck('')
-    setName('')
-    setRoastthefuck('')
-    setAnswer('')
-    if (bold === true) {
-      // setDidyouclickshare(true)
-      localStorage.setItem('data3',true) 
-      localStorage.setItem('data2',true)
-      setBold(false)
-    }
-    if (bold === true && useraskedforchange > 0 ) {
-      localStorage.setItem('data5',JSON.stringify(localStorage.getItem('data4')).slice(0, JSON.stringify(localStorage.getItem('data4')).length - 1).substring(1))
-    }
-    if (bold===true && useraskedforchange === 0) {
-      localStorage.setItem('data4',slider)
-      if (bold === true) {
-        // setDidyouclickshare(true)
-        localStorage.setItem('data3',true) 
-       // setBold0(true)
-       localStorage.setItem('data2',true)
-        setBold(false)
-      }
-     firebase
-      .firestore()
-      .collection(nameOfTheUni + "rating")
-      .add({
-        firstrating: JSON.stringify(localStorage.getItem('data4')).slice(0, JSON.stringify(localStorage.getItem('data4')).length - 1).substring(1)/10
-   });
-    }
-    {
-      ////////////////////////////////
-    }
-    if (bold===true && useraskedforchange > 0) {
-      localStorage.setItem('data4',slider)
-      if (bold === true) {
-        // setDidyouclickshare(true)
-        localStorage.setItem('data3',true) 
-       // setBold0(true)
-       localStorage.setItem('data2',true)
-        setBold(false)
-      }
-     firebase
-      .firestore()
-      .collection(nameOfTheUni + "rating")
-      .add({
-        //// the idea here is simple , we send always the new rating and we delete the rating that comes before him by just sending that old rating multiplied by -1
-        //// this will create a series like that [firstrating = 5 , 6-5 , 7-6, 10-7] = [5, 6, -5, 7, -6, 10, -7] = 10 and that is the new rating
-        rating: JSON.stringify(localStorage.getItem('data4')).slice(0, JSON.stringify(localStorage.getItem('data4')).length - 1).substring(1)/10 -JSON.stringify(localStorage.getItem('data5')).slice(0, JSON.stringify(localStorage.getItem('data5')).length - 1).substring(1)/10
-   });
-    }
-    {
-      ////////////////////////////////
-    }
-    if (bold2 === true && saythefuck.length === 0 ) {
-      alert("you should type something")
-    }
-    if (bold3 === true && roastthefuck.length === 0 && name.length < 2) {
-      alert("you should type a name and a message")
-    } else if (bold3===true && roastthefuck.length === 0) {
-      alert("you should type your message")
-    } else if (bold3 === true && name.length < 2) {
-      alert("you should type a a name")
-    }
-    if (bold4===true && answer.length === 0) {
-      alert("you should type your answer")
-    }
-    if (bold2===true && saythefuck.length > 0 || bold3===true && name.length > 2 && roastthefuck.length > 0 || bold4===true && answer.length > 0) {
-    firebase
-     .firestore()
-     .collection(nameOfTheUni)
-     .add({
-       saythefuck: saythefuck,
-       name: name,
-       roastthefuck: roastthefuck,
-       question:questions[questionnumber],
-       answer:answer,
-       upVotesCount: 0,
-       downVotesCount: 0,
-       funnyvote:0,
-       createdAt: date.toUTCString(),
-       updatedAt: date.toUTCString()
-  })
-    }
-  }
-  firebase
-    .firestore()
-    .collection("alltheratings")
-    .doc(JSON.stringify(localStorage.getItem('data')))
-    .set({
-      name:JSON.stringify(localStorage.getItem('data')),
-      allrating: thefuckingrating()
-    })
-  if (window.pageYOffset === 2) {
-    
-  }
   function handleSlider(e) {
     setSlider(e.target.value)
     setRatingEmoji(e.target.value/10)
@@ -263,8 +161,8 @@ function App() {
     setAnswer('')
     if (JSON.stringify(localStorage.getItem('data3')).slice(0, JSON.stringify(localStorage.getItem('data3')).length - 1).substring(1) === 'true' && bold === false) {
      // setBold0(true)
-      localStorage.setItem('data2',true)
-      setBold(false)
+     localStorage.setItem('data2',true)
+     setBold(false)
     } else {
      // setBold0(false)
       localStorage.setItem('data2',false)
@@ -448,16 +346,19 @@ function App() {
    if (JSON.stringify(localStorage.getItem('data2')).slice(0, JSON.stringify(localStorage.getItem('data2')).length - 1).substring(1) === "false") {
       return {display: 'none'}
     }
-    if (localStorage.length === 2 && JSON.stringify(localStorage.getItem('data2')).slice(0, JSON.stringify(localStorage.getItem('data2')).length - 1).substring(1) === "true") {
+    if (localStorage.length === 3 && JSON.stringify(localStorage.getItem('data2')).slice(0, JSON.stringify(localStorage.getItem('data2')).length - 1).substring(1) === "true") {
       return {display: 'none'}
     } 
-    if (localStorage.length === 1) {
-      return {display: 'none'}
-    }
-    if (localStorage.length === 3) {
+    if (localStorage.length === 2) {
       return {display: 'none'}
     }
     if (localStorage.length === 4) {
+      return {display: 'none'}
+    }
+    if (localStorage.length === 5) {
+      return {display: 'none'}
+    }
+    if (localStorage.length === 6) {
       return {display: 'none'}
     }
   }
@@ -576,12 +477,91 @@ function App() {
   function handleTrueorfalseThree() {
     setTrueorfalseThree(!trueorfalseThree)
   }
+  if (bold === true && useraskedforchange > 0 ) {
+    localStorage.setItem('data5',JSON.stringify(localStorage.getItem('data4')).slice(0, JSON.stringify(localStorage.getItem('data4')).length - 1).substring(1))
+  }
+  function databaseVSbold() {
+    localStorage.setItem('data4',slider)
+    function therating() {
+      return JSON.stringify(localStorage.getItem('data4')).slice(0, JSON.stringify(localStorage.getItem('data4')).length - 1).substring(1)*1/10
+    }
+    if (bold === true) {
+      // setDidyouclickshare(true)
+      localStorage.setItem('data3',true) 
+      localStorage.setItem('data2',true)
+      setBold(false)
+    }
+    if (useraskedforchange === '') {
+      firebase.database().ref(nameOfTheUni + 'rating').push({
+        firstrating: therating()
+      })
+    }
+    if (bold===true && useraskedforchange > 0) {
+      localStorage.setItem('data4',slider)
+      if (bold === true) {
+        // setDidyouclickshare(true)
+        localStorage.setItem('data3',true) 
+       // setBold0(true)
+       localStorage.setItem('data2',true)
+        setBold(false)
+      }
+      firebase.database().ref(nameOfTheUni + 'rating').push({
+        rating: therating() - JSON.stringify(localStorage.getItem('data5')).slice(0, JSON.stringify(localStorage.getItem('data5')).length - 1).substring(1)*1/10
+      })
+      }
+      firebase.database().ref("alltheratings/" + nameOfTheUni).push({
+        name:nameOfTheUni,
+        allrating: "thefuckingrating()"
+      })
+    }
+  function databaseVSbold2() {
+      setSaythefuck('')
+      setName('')
+      setRoastthefuck('')
+      setAnswer('')
+    firebase.database().ref(nameOfTheUni).push({
+      saythefuck: saythefuck,
+      upVotesCount: 0,
+      downVotesCount: 0,
+      funnyvote:0,
+      createdAt: date.toUTCString(),
+      updatedAt: date.toUTCString()
+      })} 
+  function databaseVSbold3() {
+      setSaythefuck('')
+      setName('')
+      setRoastthefuck('')
+      setAnswer('')
+      firebase.database().ref(nameOfTheUni).push({
+       name: name,
+       roastthefuck: roastthefuck,
+       upVotesCount: 0,
+       downVotesCount: 0,
+       funnyvote:0,
+       createdAt: date.toUTCString(),
+       updatedAt: date.toUTCString()
+      })}
+  function databaseVSbold4() {
+        setSaythefuck('')
+        setName('')
+        setRoastthefuck('')
+        setAnswer('')
+        firebase.database().ref(nameOfTheUni).push({
+          question:questions[questionnumber],
+          answer:answer,
+          upVotesCount: 0,
+          downVotesCount: 0,
+          funnyvote:0,
+          createdAt: date.toUTCString(),
+          updatedAt: date.toUTCString()
+      })
+  }
   if (localData) {
     return ( 
       <div className="App">
        <div className="header_container">
         <header className="header" style={{marginLeft:"15px"}}>
-         <div className="rate_the_fuck">RateTheFuck</div>
+         <div className="rate_the_fuck">RateTheFuck<span></span></div>
          <div></div>
         </header>
        </div>
@@ -606,8 +586,8 @@ function App() {
         <div className="input_container_share">
         <div className="input_container_share_rate">
            <div className="the_rating">you rated {JSON.stringify(localStorage.getItem('data')).slice(0, JSON.stringify(localStorage.getItem('data')).length - 1).substring(1)} <span>{JSON.stringify(localStorage.getItem('data4')).slice(0, JSON.stringify(localStorage.getItem('data4')).length - 1).substring(1)/10}</span>/10</div>
-           <div className="the_slider">
-             <button onClick={handleChangetherating}>change the rating</button>
+           <div className="share_button" className="input_container_button" className="the_slider" >
+             <a href="#" className="share_the_fuck" onClick={handleChangetherating}><span>change the rating</span></a>
            </div>
           </div>
         </div>
@@ -744,9 +724,18 @@ function App() {
         <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={1000} animationOutDuration={1000}>
         <div className="input_container_button" onClick={handleButton4} style={{fontWeight: handleBold4(), marginBottom:"20px"}}>💬 answer a question</div>
         </Animated>
-        <Animated style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={1200} animationOutDuration={1000}>
-        <div className="share_button" className="input_container_button" style={{marginBottom:"50px"}}>
-        <a href="#" className="share_the_fuck" onClick={e => addToPosts()}><span>SHARE</span></a>
+        <Animated className="share_button_big" style={handleJellyFishButton()} animationIn="zoomIn" animationOut="zoomOut" animationInDuration={1200} animationOutDuration={1000}>
+        <div className="share_button" className="input_container_button" style={bold ? {display: 'initial'} : {display:"none"}}>
+        <a href="#" className="share_the_fuck" onClick={databaseVSbold}><span>SHARE</span></a>
+        </div>
+        <div className="share_button" className="input_container_button" style={bold2 ? {display: 'initial'} : {display:"none"}}>
+        <a href="#" className="share_the_fuck" onClick={databaseVSbold2}><span>SHARE</span></a>
+        </div>
+        <div className="share_button" className="input_container_button" style={bold3 ? {display: 'initial'} : {display:"none"}}>
+        <a href="#" className="share_the_fuck" onClick={databaseVSbold3}><span>SHARE</span></a>
+        </div>
+        <div className="share_button" className="input_container_button" style={bold4 ? {display: 'initial'} : {display:"none"}}>
+        <a href="#" className="share_the_fuck" onClick={databaseVSbold4}><span>SHARE</span></a>
         </div>
         </Animated>
        </div>
@@ -766,11 +755,9 @@ function App() {
         //////////////////////////////////////////////////////////////////////
       }
       <div className="home_page">
-         {fucks.map((fuck) => (
-           <>
-            <Post fuck={fuck} key={fuck.id} />
-           </>
-          ))}
+      {todoList
+        ? todoList.map((todo, index) => <Post fuck={todo} key={index} />)
+        : 'loading...'}
       </div>
       </div>
       </div>
@@ -780,7 +767,7 @@ function App() {
     <div className="App">
       <div className="header_container">
       <header className="header" style={{marginLeft:"15px"}}>
-         <div className="rate_the_fuck">RateTheFuck</div>
+         <div className="rate_the_fuck">RateTheFuck{JSON.stringify(localStorage.getItem('data6')).slice(0, JSON.stringify(localStorage.getItem('data6')).length - 1).substring(1)}</div>
          <div></div>
       </header>
       </div>
@@ -789,11 +776,16 @@ function App() {
        ///////////////////////////////////////////////////////////////////////////////////////
        ///////////////////////////////////////////////////////////////////////////////////////
       }
-      <div className="make_an_account" onClick={(localStorage.length === 0) ? handleTrueorfalse : handleTheCharts}>
+      <Animated animationIn="zoomIn" animationOut="zoomOut" animationInDuration={600} animationOutDuration={600} >
+      <div className="make_an_account" onClick={(localStorage.length === 1 || localStorage.length === 0) ? handleTrueorfalse : handleTheCharts}>
+      
         <div>
-        {(localStorage.length === 0) ? "make an account" : "see" + " " + JSON.stringify(localStorage.getItem('data')).slice(0, JSON.stringify(localStorage.getItem('data')).length - 1).substring(1) + " " + "board 📋"}
+        {(localStorage.length === 1 || localStorage.length === 0) && "make an account" }
+        {(localStorage.length >= 2) && "see" + " " + JSON.stringify(localStorage.getItem('data')).slice(0, JSON.stringify(localStorage.getItem('data')).length - 1).substring(1) + " " + "board 📋"}
         </div>
+       
          </div>
+         </Animated>
       <Animated style={handleDisplay()} animationIn="fadeInDown" animationOut="zoomOut" animationInDuration={1000} animationOutDuration={1000} isVisible={!cond}>
       <div className="signup_container_container" >
        <div className="signup_container"> 
@@ -818,13 +810,13 @@ function App() {
        ////////////////////////////////////////////////////////////////////////////////////////
        ////////////////////////////////////////////////////////////////////////////////////////
       }
+         <Animated animationIn="zoomIn" animationOut="zoomOut" animationInDuration={1000} animationOutDuration={1000} >
       <div className="choose_your_uni" onClick={handleClickTwo} onClick={handleTrueorfalseTwo}>
         <p className="click_to_show_the_uni">
-         
-         see top 10 universities
-
+        see top 10 universities
         </p>
       </div>
+      </Animated>
       <Animated style={handleDisplayTwo()} animationIn="fadeInDown" animationOut="zoomOut"   animationInDuration={1000} animationOutDuration={1000} isVisible={!condTwo}>
       <div className="uni">
         <div>name of the uni</div>
@@ -839,11 +831,13 @@ function App() {
        ///////////////////////////////////////////////////////////////////////////////////////
        ///////////////////////////////////////////////////////////////////////////////////////
       }
+      <Animated animationIn="zoomIn" animationOut="zoomOut" animationInDuration={1400} animationOutDuration={1400} >
       <div className="choose_your_uni" onClick={handleClickThree} onClick={handleTrueorfalseThree}>
         <p className="click_to_show_the_uni">
-          see all universities
+        see all universities
         </p>
       </div>
+       </Animated>
       <Animated style={handleDisplayThree()} animationIn="fadeInDown" animationOut="zoomOut" animationInDuration={1000} animationOutDuration={1000} isVisible={!condThree}>
       {fucksratings.map((fuckrating) => {
                 <div className="uni">
@@ -852,6 +846,9 @@ function App() {
               </div>
       })}
       </Animated>
+      <Animated animationIn="bounceInLeft" animationOut="bounceOutLeft" animationInDuration={0} animationOutDuration={isMobile === true ? 0 : 4500}  isVisible={isMobile && (window.innerWidth > 1000)}>
+      <svg className="the_svg_pic" id="a80abe34-445f-4e13-ba21-3f71a0ed139d" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="876.16142" height="638.23334" viewBox="0 0 876.16142 638.23334"><path id="b1d22f69-f76d-408f-9148-ee919735497c" data-name="Path 438" d="M800.53973,700.72018a33.99885,33.99885,0,0,1-32.83078-5.783c-11.499-9.65212-15.105-25.54838-18.0376-40.27123l-8.67673-43.54924L759.16,623.62461c13.06432,8.995,26.42205,18.279,35.46681,31.30761s12.99072,30.81509,5.72566,44.91321" transform="translate(-161.91929 -130.88333)" fill="#a57ccc"/><path id="ade901b1-ea7b-4353-b3ad-0db3208b227f" data-name="Path 439" d="M797.73482,756.47635c2.28636-16.65737,4.63877-33.53015,3.03115-50.36612-1.42466-14.95233-5.98655-29.55387-15.27384-41.53134a69.08843,69.08843,0,0,0-17.72583-16.063c-1.77214-1.11831-3.40358,1.68985-1.639,2.80386a65.68133,65.68133,0,0,1,25.98143,31.34659c5.65638,14.38614,6.56464,30.06918,5.59034,45.35168-.58892,9.2418-1.84036,18.423-3.0972,27.59338a1.68231,1.68231,0,0,0,1.13453,1.99729,1.63361,1.63361,0,0,0,1.99733-1.13449Z" transform="translate(-161.91929 -130.88333)" fill="#f2f2f2"/><path id="b15deb1b-9611-49d7-aeea-2d3d35262ea7" data-name="Path 442" d="M781.27775,729.748a25.02764,25.02764,0,0,1-21.8071,11.25864c-11.04212-.524-20.24388-8.22742-28.52654-15.54336L706.44036,703.8283l16.21675-.77617c11.66243-.55859,23.62579-1.08256,34.73392,2.518s21.35241,12.2524,23.3833,23.75031" transform="translate(-161.91929 -130.88333)" fill="#e6e6e6"/><path id="e75b09f7-43e2-4148-8f0b-911a9c6242e1" data-name="Path 443" d="M804.1977,766.05162c-11.00747-19.47636-23.77409-41.12214-46.588-48.04077a51.98687,51.98687,0,0,0-19.59434-2.02332c-2.08068.17972-1.561,3.38624.51531,3.20764a48.29738,48.29738,0,0,1,31.27081,8.273c8.81743,6.00172,15.683,14.3461,21.49314,23.19383,3.55945,5.4204,6.7476,11.07027,9.93575,16.71254C802.2491,769.17806,805.22829,767.87573,804.1977,766.05162Z" transform="translate(-161.91929 -130.88333)" fill="#f2f2f2"/><circle cx="395.01969" cy="348.99318" r="59.75984" fill="#fff"/><path d="M556.939,540.6362a60.75977,60.75977,0,1,1,60.75977-60.75976A60.82858,60.82858,0,0,1,556.939,540.6362Zm0-119.51953a58.75977,58.75977,0,1,0,58.75977,58.75977A58.82629,58.82629,0,0,0,556.939,421.11667Z" transform="translate(-161.91929 -130.88333)" fill="#3f3d56"/><path d="M546.85452,525.26706l-.39917-.17139c-.22876-.09814-5.58448-2.51757-3.66016-12.52246l.03467-.11035.71313-1.59082a34.589,34.589,0,0,0,2.99854-14.92041c-4.30469-.09961-26.36987-.72558-28.95264-3.124a4.57633,4.57633,0,0,1-1.45971-3.08106l-.1316-2.104a4.728,4.728,0,0,1,4.71875-5.023h1.27051l-.89941-1.02832a4.50938,4.50938,0,0,1-1.117-2.97217v-1.74072a4.51473,4.51473,0,0,1,2.32178-3.94531l.72217-.40137-.41528-.41553a4.51331,4.51331,0,0,1,2.384-7.63232l4.72388-.85938a7.21385,7.21385,0,0,1,6.37719-6.74853l13.50293-1.55713a80.34412,80.34412,0,0,1,21.17115-.93652l2.06787.18261,20.89233-2.4917v27.9292l-19.32031,2.65186-16.27075,18.85937a118.458,118.458,0,0,1-10.6919,22.79541Z" transform="translate(-161.91929 -130.88333)" fill="#ffb7b7"/><polygon points="383.165 392.158 382.252 391.749 385.392 384.729 389.071 385.863 388.777 386.818 385.944 385.946 383.165 392.158" opacity="0.2"/><path d="M507.90212,457.97952l-6.39624-88.74346,1.21656-29.61939-24.93067,5.54724,9.18311,116.28259a12.994,12.994,0,1,0,20.92724-3.467Z" transform="translate(-161.91929 -130.88333)" fill="#ffb7b7"/><path d="M385.30764,376.35019l-1.5852-29.73352-16-13-9.26929,27.53357-51.84253,69.14337a12.99334,12.99334,0,1,0,15.04883,12.82306c0-.17493-.01929-.34491-.02612-.51813Z" transform="translate(-161.91929 -130.88333)" fill="#ffb7b7"/><path d="M388.17654,366.83249l-39.05249-41.68066,28.99731-60.6709a10.22181,10.22181,0,0,1,5.97119-5.32324,10.06507,10.06507,0,0,1,7.85645.56445l.28516.14453Z" transform="translate(-161.91929 -130.88333)" fill="#a57ccc"/><path d="M475.32546,360.26413l-6.937-40.668.02637-.10254,16.3999-64.46972,1.53662-.17871a17.90373,17.90373,0,0,1,19.4961,14.17382l15.4541,76.94141Z" transform="translate(-161.91929 -130.88333)" fill="#a57ccc"/><path d="M484.15945,237.61667h-83v-37.5a41.5,41.5,0,0,1,83,0Z" transform="translate(-161.91929 -130.88333)" fill="#2f2e41"/><polygon points="428.274 573.838 414.227 585.661 361.942 537.106 382.674 519.657 428.274 573.838" fill="#ffb7b7"/><path d="M605.23646,715.32232l-45.293,38.12077-.48219-.57287a23.04355,23.04355,0,0,1,2.79066-32.46678l.00112-.00094,27.6635-23.28278Z" transform="translate(-161.91929 -130.88333)" fill="#2f2e41"/><polygon points="217.724 619.763 199.365 619.762 190.63 548.945 217.728 548.946 217.724 619.763" fill="#ffb7b7"/><path d="M384.32605,768.44309l-59.20006-.0022v-.74878a23.04355,23.04355,0,0,1,23.04231-23.04195h.00146l36.15739.00146Z" transform="translate(-161.91929 -130.88333)" fill="#2f2e41"/><path d="M299.12332,732.87155l9.13891-104.60644a671.998,671.998,0,0,1,32.49536-155.62793l38.26953-113.749,3.34229-26.49023c-10.18311-21.11621.60254-37.19824,1.84473-38.93359L382.886,267.14987c-.02588-.51757-.063-1.01757-.09814-1.5-.38037-5.16992-.10352-8.14941,9.98535-9.26562l83.70947-2.58106c10.5918-.04394,17.01367,1.7168,19.62256,5.47168,3.00146,4.32129.62012,10.583-1.68262,16.63868-.23926.62988-.47949,1.25976-.71338,1.88964l-33.15673,89.02832c16.04541,31.01856,12.95263,78.458,12.91943,78.93457l1.17578,14.03028L596.36209,658.70358l-71.96534,67.19825-.32031-.52149L408.15017,536.8696l-.99609,190-.46973.02637Z" transform="translate(-161.91929 -130.88333)" fill="#2f2e41"/><circle cx="441.70308" cy="204.82213" r="33.9208" transform="translate(-111.80552 363.26825) rotate(-61.33682)" fill="#ffb7b7"/><circle cx="296.15999" cy="22.58017" r="22.58017" fill="#2f2e41"/><path d="M488.15945,206.61667h-83v-.5a41.5,41.5,0,0,1,83,0Z" transform="translate(-161.91929 -130.88333)" fill="#2f2e41"/><circle cx="111.01969" cy="264.99318" r="59.75984" fill="#fff"/><path d="M272.939,456.6362a60.75977,60.75977,0,1,1,60.75989-60.75976A60.82876,60.82876,0,0,1,272.939,456.6362Zm0-119.51953a58.75977,58.75977,0,1,0,58.75989,58.75977A58.82632,58.82632,0,0,0,272.939,337.11667Z" transform="translate(-161.91929 -130.88333)" fill="#3f3d56"/><path d="M236.15945,423.67966V395.751l19.32019-2.65186,16.27087-18.85986a118.47234,118.47234,0,0,1,10.6919-22.79541l.58117-.958.39917.17139c.22889.09814,5.58423,2.51758,3.66016,12.52246l-.03467.11035-.71325,1.59131a34.58292,34.58292,0,0,0-2.99842,14.91992c4.30457.09961,26.36975.72559,28.95252,3.12451a4.57484,4.57484,0,0,1,1.45971,3.08106l.1316,2.104a4.728,4.728,0,0,1-4.71875,5.02295h-1.27027l.89929,1.02783a4.513,4.513,0,0,1,1.11683,2.97217v1.74072a4.51667,4.51667,0,0,1-2.32154,3.9458l-.72229.40137.41529.415a4.5139,4.5139,0,0,1-2.38428,7.63281l-4.72388.85889a7.21363,7.21363,0,0,1-6.3772,6.74853l-13.50293,1.55713a80.28245,80.28245,0,0,1-21.17114.93653l-2.068-.18262Z" transform="translate(-161.91929 -130.88333)" fill="#ffb7b7"/><polygon points="120.647 229.257 116.968 228.124 117.262 227.168 120.095 228.041 122.875 221.829 123.788 222.237 120.647 229.257" opacity="0.2"/><path d="M1037.08071,769.11667H162.91929a1,1,0,1,1,0-2h874.16142a1,1,0,0,1,0,2Z" transform="translate(-161.91929 -130.88333)" fill="#cbcbcb"/></svg>
+      </Animated>
       {
        ///////////////////////////////////////////////////////////////////////////////////////
        ///////////////////////////////////////////////////////////////////////////////////////
@@ -859,9 +856,7 @@ function App() {
       }
       <div>
       </div> 
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-       <path fill="rgb(165, 124, 204)" fill-opacity="1" d="M0,96L120,117.3C240,139,480,181,720,192C960,203,1200,181,1320,170.7L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
-      </svg>
+    
     </div> 
   ); }
 }
