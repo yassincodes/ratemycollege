@@ -25,6 +25,9 @@ function App() {
   const [roastthefuck, setRoastthefuck] = useState('')
   const [answer, setAnswer] = useState('')
   const [useraskedforchange, setUseraskedforchange] = useState('')
+  let sum = 0;
+  let sum2 = 0;
+  let sum3 = 0;
   let nameOfTheUni = JSON.stringify(localStorage.getItem('data')).slice(0, JSON.stringify(localStorage.getItem('data')).length - 1).substring(1)
   // !!!! // const [sumofnum, setSumofnum] = useState([])
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -113,14 +116,13 @@ useEffect(() => {
       setTodoList(todoList);
     });
   }, [JSON.stringify(localStorage.getItem('data'))]);
-  /////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////
+
+
   const [todoList2, setTodoList2] = useState();
 
   useEffect(() => {
-    const todo2Ref = firebase.database().ref(nameOfTheUni + 'rating');
-    todo2Ref.on('value', (snapshot) => {
+    const todoRef = firebase.database().ref(nameOfTheUni + "rating");
+    todoRef.on('value', (snapshot) => {
       const todos2 = snapshot.val();
       const todoList2 = [];
       for (let id in todos2) {
@@ -129,6 +131,14 @@ useEffect(() => {
       setTodoList2(todoList2);
     });
   }, [JSON.stringify(localStorage.getItem('data'))]);
+   
+
+  function thefuckingrating() {
+    return ""
+  }
+  /////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
   function letstestthefuck() {
     if (JSON.stringify(localStorage.getItem('data2')).slice(0, JSON.stringify(localStorage.getItem('data2')).length - 1).substring(1) === "false") {
       return 'wetestedthefuck'
@@ -517,7 +527,7 @@ useEffect(() => {
       // bug to be fixed : the problem is that you shoul verify that the first thefuckingrating() is a number not a NaN
       firebase.database().ref("alltheratings/" + nameOfTheUni).set({
         name:nameOfTheUni,
-        allrating: thefuckingrating()
+        allrating: 'thefuckingrating()'
       })
     }
   function databaseVSbold2() {
@@ -562,16 +572,13 @@ useEffect(() => {
           updatedAt: date.toUTCString()
       })
   }
-  function thefuckingrating() {
-    todoList2.forEach(fuck => fuck.firstrating ? newarray2.push(fuck.firstrating) : newarray.push(fuck.rating))
-    return  (newarray.reduce((a, b) => a + b, 0) + newarray2.reduce((a, b) => a + b, 0))/newarray2.length
-  }
+
   if (localData) {
     return ( 
       <div className="App">
        <div className="header_container">
         <header className="header" style={{marginLeft:"15px"}}>
-         <div className="rate_the_fuck">RateTheFuck<span>{thefuckingrating()}</span></div>
+         <div className="rate_the_fuck">RateTheFuck{thefuckingrating()}</div>
          <div></div>
         </header>
        </div>
@@ -755,9 +762,33 @@ useEffect(() => {
         //////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////
       }
+    <div style={{display: "none"}}>
       <div>
+        the test
+        {todoList2
+        ? todoList2.map((todo) => todo.firstrating ? sum = sum + todo.firstrating : sum2 = sum2+ todo.rating)
+        : 'loading...'}
       </div>
       <div>
+        the test
+        {todoList2
+        ? todoList2.map((todo) => todo.firstrating ? sum3 = sum3 + 1 : 1)
+        : 'loading...'}
+      </div>
+      <div style={{color: "red"}}>
+        {sum}
+      </div>
+      <div style={{color: "blue"}}>
+        {sum2}
+      </div>
+      <div style={{color: "green"}}>
+        {sum3}
+      </div>
+      <div style={{color: "green"}}>
+        {(sum+sum2)/sum3}
+      </div>
+      <div>
+      </div>
       </div>
 
      
@@ -777,7 +808,7 @@ useEffect(() => {
     <div className="App">
       <div className="header_container">
       <header className="header" style={{marginLeft:"15px"}}>
-         <div className="rate_the_fuck">RateTheFuck</div>
+         <div className="rate_the_fuck">RateTheFuck{thefuckingrating()}</div>
          <div></div>
       </header>
       </div>
@@ -861,7 +892,11 @@ useEffect(() => {
       {fucksratings.map((fuckrating) => {
                 <div className="uni">
                 <div>{fuckrating.name}</div>
-                <div>{fuckrating.thefuckingrating}</div>
+               {
+
+            //  <div>{fuckrating.thefuckingrating}</div>
+               }
+
               </div>
       })}
       </Animated>

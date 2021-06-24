@@ -1,3 +1,12 @@
 make a function that will add always when you click
 make different buttons when you click each one something will happen
 try a different way to crud 
+-----------------
+first of all we do a useEffect to get info and store it in todoList2
+(what I should do is to check if todoList is getting data or not by just running a map function)
+the data should be :
+stored in an array and then do some calculation
+or it should be by running a function 
+let s = 0
+s = s + fuck.firstrating
+return s 
